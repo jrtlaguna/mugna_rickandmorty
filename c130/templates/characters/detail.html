@@ -1,0 +1,89 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card card-body mb-1 third">
+                <div class="row mb-2">
+                    {% if object.localImage %} 
+
+                    <img src="{{object.localImage.url}}" alt="" id="prof_image" class="character-image">
+                    
+                    {% else %}
+                        
+                    <img src="{{object.image}}" 
+                    onerror="this.onerror=null;this.src='{% static '/images/profile2.jpeg' %}';" 
+                    class="character-image" alt="Failed to load image."/>
+
+                    {% endif %}
+                </div>
+                <a href="{% url 'character-update' object.id %}" class="btn btn-block btn-warning">Update</a>
+                <a href="{% url 'character-delete' object.id %}" class="btn btn-block btn-danger">Delete</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card card-body">
+                <table class="table table-responsive-sm table-bordered character" >
+                    <tr>
+                        <td><strong class="text-left">Name:</strong><br> <p class="text-center">{{object.name}} </p></td>
+                        <td><strong class="text-left">Status:</strong><br> <p class="text-center">{{object.status}} </p></td>
+                    </tr>
+                    <tr>
+                        <td><strong class="text-left">Gender:</strong><br> <p class="text-center">{{object.gender}} </p></td>
+                        <td><strong class="text-left">Species:</strong><br> <p class="text-center">{{object.species}} </p></td>
+                    </tr>
+                    <tr>
+                        <td><strong class="text-left">Type:</strong><br> <p class="text-center">{{object.type}} </p></td>
+                        <td><strong class="text-left">Current Location:</strong><br> <p class="text-center">{{object.location}} </p></td>
+
+                    </tr>
+                    <tr>
+                        <td><strong class="text-left">Origin:</strong><br> <p class="text-center">{{object.origin}} </p></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    
+    {% if object.episodes.count %}
+        
+        
+    <div class="row mt-2">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+        <div class="d-flex justify-content-center h-100">
+                <div class="card w-100 pt-sm-3">
+                <strong class="text-center">Episodes</strong>
+                    <div class="d-flex justify-content-center align-self-center mt-2">
+                        <table class="table table-responsive-sm table-dark w-100 text-center">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ep in object.episodes.all %}
+                                    <tr>
+                                        <td>{{ep.code}}</td>
+                                        <td>{{ep.name}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    {% endif %}
+    
+        
+
+{% endblock content %}

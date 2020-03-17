@@ -6,10 +6,28 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "*"
-psycopg2-binary = "*"
-pylint = "*"
-requests = "*"
+psycopg2-binary = "==2.8.4"
+pylint = "==2.4.4"
+requests = "==2.23.0"
+asgiref = "==3.2.4"
+astroid = "==2.3.3"
+certifi = "==2019.11.28"
+chardet = "==3.0.4"
+django-filter = "==2.2.0"
+django-widget-tweaks = "==1.4.5"
+idna = "==2.9"
+isort = "==4.3.21"
+lazy-object-proxy = "==1.4.3"
+mccabe = "==0.6.1"
+pytz = "==2019.3"
+six = "==1.14.0"
+sqlparse = "==0.3.1"
+urllib3 = "==1.25.8"
+wrapt = "==1.11.2"
+Django = "==3.0.4"
+pillow = "*"
+django-admin-list-filter-dropdown = "*"
+6210100 = {file = "https://github.com/darklow/django-suit/tarball/v2"}
 
 [requires]
 python_version = "3.8"
