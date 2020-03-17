@@ -1,0 +1,40 @@
+{% extends 'layouts.html' %}
+
+
+{% block content %}
+
+    <div class="card card-body">
+        <div class="row">
+            <div class="col-sm-3"><strong>Name: </strong>{{object.name}}</div>
+            <div class="col-sm-3"><strong>Type: </strong>{{object.type}}</div>
+            <div class="col-sm-3"><strong>Dimension: </strong>{{object.dimension}}</div>
+            <div class="col-sm-3"><strong>Population: </strong> <p class="text-center" style="font-weight: bold; font-size: 30px;"> {{object.residents.count}}</p></div>
+        </div>
+    </div>
+<br>
+    <div class="card card-body">
+        <table class="table table-dark table-bordered" style="border: black solid 1px;">
+            <thead class="thead-light">
+                <tr>
+                    <th class="text-center">Residents</th>
+                    <th class="text-center">Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for res in object.residents.all %}
+                <tr>
+                    <td class="text-center">{{res.name}}</td>
+                    <td class="text-center">{{res.status}}</td>
+                    <td class="text-center"><a href="{% url 'character-detail' res.id %}" class="btn btn-block btn-info">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        
+        
+        
+        
+{% endblock content %}
+    
