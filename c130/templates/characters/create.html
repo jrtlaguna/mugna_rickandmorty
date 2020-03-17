@@ -1,0 +1,47 @@
+{% extends 'layouts.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-body mb-1 third">
+            <div class="row mb-2">
+                {% if object.localImage %} 
+
+                <img src="{{object.localImage.url}}" alt="" id="prof_image" class="character-image">
+
+                {% else %}
+                    
+                <img src="{{object.image}}" 
+                onerror="this.onerror=null;this.src='{% static '/images/profile2.jpeg' %}';" 
+                class="character-image" alt="Failed to load image."/>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for f in form %}
+                    <div class="form-group">
+                        <label for="f.id_for_label">{{f.label}}</label>
+                        {{ f|add_class:'form-control'}}
+                        {% if f.errors %}
+                            {% for error in f.errors %}
+                                <small class="text-danger">{{error}}</small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    
+                        
+                {% endfor %}
+                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}
