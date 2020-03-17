@@ -1,15 +1,36 @@
 from django.contrib import admin
 from .models import Character, Location, Episode
 
+from django_admin_listfilter_dropdown.filters import (
+    DropdownFilter, ChoiceDropdownFilter, RelatedDropdownFilter
+)
+
 # Register your models here.
 
 
 
 class CharacterAdmin(admin.ModelAdmin):
+    # fieldsets = (
+    #     (None, {
+    #         "fields": (
+    #             'name',
+    #             'location',
+    #             'status'
+    #         ),
+    #     }),
+    # )
+    list_per_page = 20
+    search_fields = ('name',)
 
-    ordering = ['api_id']
+    list_display = ('name', 'location', 'status')
+    list_filter = (
+        ('location', RelatedDropdownFilter),
+        ('status', ChoiceDropdownFilter),
+        )
 
-# class LocationAdmin(admin.ModelAdmin):
+    readonly_fields = ('api_id',)
+
+    ordering = ['api_id', 'id']
 
 
 class EpisodeAdmin(admin.ModelAdmin):
