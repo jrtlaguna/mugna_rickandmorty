@@ -1,4 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.core.files.temp import NamedTemporaryFile
+from django.core.files import File
 
 from c130.models import Character, Episode, Location
 
@@ -22,43 +24,53 @@ class Command(BaseCommand):
         location_url = 'https://rickandmortyapi.com/api/location/'
         episode_url = 'https://rickandmortyapi.com/api/episode/'
 
-        character_info = requests.get(character_url).json()
+        # character_info = requests.get(character_url).json()
         
 
-        for i in range(character_info['info']['count']):
+        # for i in range(character_info['info']['count']):
             
-            character = requests.get(url=f'{character_url}{i+1}').json()
+        #     character = requests.get(url=f'{character_url}{i+1}').json()
 
-            if(Character.objects.filter(name=character['name']).exists()):
-                continue
+        #     if(Character.objects.filter(name=character['name']).exists()):
+        #         continue
 
-            print(f"Creating character {character['name']}")
-            instance = Character(
-                name = character['name'],
-                status = character['status'],
-                species = character['species'],
-                type = character['type'],
-                gender = character['gender'],
-                image = character['image'],
-                url = character['url'],
-                created = character['created']
-            )
+        #     print(f"Creating character {character['name']}")
+        #     instance = Character(
+        #         name = character['name'],
+        #         status = character['status'],
+        #         species = character['species'],
+        #         type = character['type'],
+        #         gender = character['gender'],
+        #         url = character['url'],
+        #         created = character['created']
+        #     )
             
-            origin = character['origin']['name']
-            location = character['location']['name']
+        #     origin = character['origin']['name']
+        #     location = character['location']['name']
 
-            if not Location.objects.filter(name=character['origin']['name']).exists():
-                origin = Location.objects.create(name=origin)
-            if not Location.objects.filter(name=character['location']['name']).exists():
-                location = Location.objects.create(name=location)
+        #     if not Location.objects.filter(name=character['origin']['name']).exists():
+        #         origin = Location.objects.create(name=origin)
+        #     if not Location.objects.filter(name=character['location']['name']).exists():
+        #         location = Location.objects.create(name=location)
 
-            origin = Location.objects.filter(name=origin)
-            location = Location.objects.filter(name=location)
+        #     origin = Location.objects.filter(name=origin)
+        #     location = Location.objects.filter(name=location)
 
 
-            instance.origin = origin.first()
-            instance.location = location.first()
-            instance.save()
+        #     instance.origin = origin.first()
+        #     instance.location = location.first()
+
+        #     # image handling
+
+        #     img = requests.get(character['image'])
+
+        #     img_temp = NamedTemporaryFile(delete=True)
+        #     img_temp.write(img.content)
+        #     img_temp.flush()
+
+        #     instance.image.save(f"{character['name']}.jpeg", File(img_temp), save=True)
+
+        #     instance.save()
 
         
         location_info = requests.get(location_url).json()
@@ -82,11 +94,11 @@ class Command(BaseCommand):
             instance.created = location['created']
             instance.save()
 
-        episode_info = requests.get(episode_url, headers=headers).json()
+        episode_info = requests.get(episode_url, headers=self.headers).json()
 
         for i in range(episode_info['info']['count']):
         
-            episode = requests.get(f'{episode_url}{i+1}', headers=headers).json()
+            episode = requests.get(f'{episode_url}{i+1}', headers=self.headers).json()
 
 
             if Episode.objects.filter(name=episode['name']).exists():
@@ -108,8 +120,8 @@ class Command(BaseCommand):
 
             for character in episode['characters']:
                 try:
-                    c = Characters.objects.filter(url = character)
-                    print(c)
+                    c = Characters.objects.filter(url = character).first()
+                    print(f"Adding {c['name']} to an episode.")
                     c.episodes.add(instance.id)
                     c.save()
                 except Exception:
