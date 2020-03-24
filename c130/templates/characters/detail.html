@@ -7,17 +7,9 @@
         <div class="col-md-3">
             <div class="card card-body mb-1 third">
                 <div class="row mb-2">
-                    {% if object.localImage %} 
 
-                    <img src="{{object.localImage.url}}" alt="" id="prof_image" class="character-image">
+                    <img src="{{object.image.url}}" alt="" id="prof_image" class="character-image">
                     
-                    {% else %}
-                        
-                    <img src="{{object.image}}" 
-                    onerror="this.onerror=null;this.src='{% static '/images/profile2.jpeg' %}';" 
-                    class="character-image" alt="Failed to load image."/>
-
-                    {% endif %}
                 </div>
                 <a href="{% url 'character-update' object.id %}" class="btn btn-block btn-warning">Update</a>
                 <a href="{% url 'character-delete' object.id %}" class="btn btn-block btn-danger">Delete</a>
@@ -67,7 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for ep in object.episodes.all %}
+                                {% for ep in episodes %}
                                     <tr>
                                         <td>{{ep.code}}</td>
                                         <td>{{ep.name}}</td>

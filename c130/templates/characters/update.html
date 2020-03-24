@@ -7,17 +7,7 @@
     <div class="col-md-3">
         <div class="card card-body mb-1 third">
             <div class="row mb-2">
-                {% if object.localImage %} 
-
-                <img src="{{object.localImage.url}}" alt="" id="prof_image" class="character-image">
-
-                {% else %}
-                    
-                <img src="{{object.image}}" 
-                onerror="this.onerror=null;this.src='{% static '/images/profile2.jpeg' %}';" 
-                class="character-image" alt="Failed to load image."/>
-
-                {% endif %}
+                <img src="{{object.image.url}}" alt="" id="prof_image" class="character-image">
             </div>
         </div>
     </div>
