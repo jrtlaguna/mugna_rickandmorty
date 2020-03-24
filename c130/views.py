@@ -31,7 +31,7 @@ class CharacterListView(ListView):
     template_name = "characters/list.html"
 
 
-    ordering = ['api_id']
+    ordering = ['id']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,22 +51,14 @@ class CharacterListView(ListView):
         return context
 
 
-# class CharacterListView(FilterView):
-#     model = Character
-#     template_name = "characters/list.html"
-#     filterset_class = CharacterFilter
-#     paginate_by = 15
-#     ordering = ['api_id', 'id']
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         page = self.request.GET.get('page')
-#         context['page'] = context['paginator'].get_page(page)
-#         return context
-
 class CharacterDetailView(DetailView):
     model = Character
     template_name = "characters/detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['episodes'] = self.object.episodes.all()
+        return context
     
 class CharacterDeleteView(DeleteView):
     model = Character
