@@ -1,8 +1,5 @@
 from django.db.models.signals import post_save
 from .models import Character
-from django.dispatch import receiver
-from django.template.defaultfilters import slugify
-
 
 
 

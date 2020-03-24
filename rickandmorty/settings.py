@@ -31,12 +31,13 @@ SECRET_KEY = '653=l=l(e8s@=+kuf4d$k0u+#w9(si901=(9-nm%f2z2ea-sql'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'c130.apps.C130Config',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,8 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'c130.apps.C130Config',
-    # 'c130'
+    
+    'django_filters',
+    'widget_tweaks',
+    'django_admin_listfilter_dropdown',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +134,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')

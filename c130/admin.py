@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import Character, Location, Episode
 
+from django_admin_listfilter_dropdown.filters import (
+    DropdownFilter, ChoiceDropdownFilter, RelatedDropdownFilter
+)
+
 # Register your models here.
 
 
@@ -16,8 +20,9 @@ class CharacterAdmin(admin.ModelAdmin):
         ('status', ChoiceDropdownFilter),
         )
 
-    ordering = ['id']
+    readonly_fields = ('api_id',)
 
+    ordering = ['api_id', 'id']
 
 
 class EpisodeAdmin(admin.ModelAdmin):
