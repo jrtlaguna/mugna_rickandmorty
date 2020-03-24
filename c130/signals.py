@@ -6,11 +6,10 @@ from .models import Character
 def character(sender, instance, created, **kwargs):
 
     if created:
-        if instance.api_id is None:
-            print('Found no api_id for instance.')
-            instance.api_id = instance.id
-            print(f"{{instance.name}} api_id set to {{instance.id}}")
+        if instance.slug is None:
+            print("Slug not found")
+            instance.slug = instance.slug
 
 
-
-post_save.connect(character, sender=Character)
+# Add if characters stored used slug
+# pre_save.connect(character, sender=Character)

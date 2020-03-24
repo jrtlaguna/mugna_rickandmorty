@@ -7,16 +7,7 @@
         <div class="h-100">
             <div class="d-flex justify-content-center h-100 flex-column">
                 <div class="d-flex justify-content-center align-self-center">
-                    {% if object.localImage %} 
-                        <img src="{{object.localImage.url}}" alt="" id="prof_image" class="character-image">
-                        
-                        {% else %}
-                            
-                        <img src="{{object.image}}" 
-                        onerror="this.onerror=null;this.src='{% static '/images/profile2.jpeg' %}';" 
-                        class="character-image" alt="Failed to load image."/>
-
-                        {% endif %}
+                    <img src="{{object.image.url}}" alt="" id="prof_image" class="character-image">
                 </div>
                 <div class="d-flex justify-content center align-self-center mt-2">
                     <p> Delete <span class="ram"> {{object.name}}</span>?</p>

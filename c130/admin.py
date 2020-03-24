@@ -10,15 +10,7 @@ from django_admin_listfilter_dropdown.filters import (
 
 
 class CharacterAdmin(admin.ModelAdmin):
-    # fieldsets = (
-    #     (None, {
-    #         "fields": (
-    #             'name',
-    #             'location',
-    #             'status'
-    #         ),
-    #     }),
-    # )
+    
     list_per_page = 20
     search_fields = ('name',)
 
@@ -36,9 +28,6 @@ class CharacterAdmin(admin.ModelAdmin):
 class EpisodeAdmin(admin.ModelAdmin):
   
     ordering = ['air_date']
-
-
-    
 
 
 admin.site.register(Character, CharacterAdmin),

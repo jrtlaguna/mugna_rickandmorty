@@ -28,6 +28,8 @@ Django = "==3.0.4"
 pillow = "*"
 django-admin-list-filter-dropdown = "*"
 6210100 = {file = "https://github.com/darklow/django-suit/tarball/v2"}
+python-dotenv = "*"
+
 
 [requires]
 python_version = "3.8"
