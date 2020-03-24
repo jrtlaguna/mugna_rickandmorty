@@ -5,15 +5,14 @@ from c130.models import Character, Episode, Location
 import requests
 from datetime import datetime
 import re
-# from urllib.parse import urlparse
 
-pattern = "(\d+)$"
-headers = {"content-type": "application/json"}
 
 class Command(BaseCommand):
   
 
     help = 'Downloads and stores all characters, episodes, and locations from Rick and Morty'
+
+    headers = {"content-type": "application/json"}
 
 
     def handle(self, *args, **kwargs):
@@ -35,13 +34,12 @@ class Command(BaseCommand):
 
             print(f"Creating character {character['name']}")
             instance = Character(
-                api_id = character['id'],
                 name = character['name'],
                 status = character['status'],
                 species = character['species'],
                 type = character['type'],
                 gender = character['gender'],
-                image= character['image'],
+                image = character['image'],
                 url = character['url'],
                 created = character['created']
             )
@@ -107,22 +105,15 @@ class Command(BaseCommand):
 
             instance.characters.add(*characters)
             
-            
-            # ids = []
-
-            # ids.append(*characters)
-            # print(instance.id)
-            
 
             for character in episode['characters']:
                 try:
-                    c = Character.objects.filter(api_id = get_url_id(character)).first()
+                    c = Characters.objects.filter(url = character)
                     print(c)
                     c.episodes.add(instance.id)
                     c.save()
                 except Exception:
                     continue
-                
 
             instance.save()
 
@@ -132,6 +123,7 @@ class Command(BaseCommand):
 
         
 def get_url_id(string):
+    pattern = "(\d+)$"
     return re.search(pattern, string).group(0)
 
 

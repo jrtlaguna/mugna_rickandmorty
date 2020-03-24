@@ -6,18 +6,23 @@ from .models import Character, Location, Episode
 
 
 class CharacterAdmin(admin.ModelAdmin):
+    
+    list_per_page = 20
+    search_fields = ('name',)
 
-    ordering = ['api_id']
+    list_display = ('name', 'location', 'status')
+    list_filter = (
+        ('location', RelatedDropdownFilter),
+        ('status', ChoiceDropdownFilter),
+        )
 
-# class LocationAdmin(admin.ModelAdmin):
+    ordering = ['id']
+
 
 
 class EpisodeAdmin(admin.ModelAdmin):
   
     ordering = ['air_date']
-
-
-    
 
 
 admin.site.register(Character, CharacterAdmin),
