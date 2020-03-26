@@ -20,7 +20,7 @@ class CharacterAdmin(admin.ModelAdmin):
         ('status', ChoiceDropdownFilter),
         )
 
-    readonly_fields = ('api_id',)
+    readonly_fields = ('api_id', 'episodes')
 
     ordering = ['api_id', 'id']
 

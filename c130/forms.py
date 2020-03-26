@@ -12,11 +12,11 @@ class CharacterForm(ModelForm):
     class Meta:
 
         labels = {
-            "localImage": 'Image'
+            "image": 'Image'
         }
 
         model = Character
         
         fields = '__all__'
-        exclude = ['api_id', 'episodes', 'image']
+        exclude = ['api_id', 'episodes']
         
