@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django_filters.views import FilterView
 from django.core.paginator import Paginator
 from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse
 
 from django.views.generic import (
     View,
@@ -40,10 +41,8 @@ class CharacterListView(ListView):
         page = self.request.GET.get('page')
 
         query = self.request.GET.copy()
-        # print(query)
         if 'page' in query:
             del query['page']
-        # print(query)
         context['query'] = query
         print(query.urlencode())
         context['page'] = paginator.get_page(page)
@@ -58,6 +57,7 @@ class CharacterDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['episodes'] = self.object.episodes.all()
+
         return context
     
 class CharacterDeleteView(DeleteView):
@@ -72,13 +72,7 @@ class CharacterCreateView(CreateView):
     model = Character
     template_name = "characters/create.html"
     form_class = CharacterForm
-    success_url = f'characters/{{self.id}}'
-
-    def get(self, requests, *args, **kwargs):
-        context =  {'form': CharacterForm()}
-        return render(requests, self.template_name, context)
-        
-
+    
 
 
 class CharacterUpdateView(UpdateView):
