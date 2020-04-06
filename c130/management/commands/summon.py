@@ -24,53 +24,53 @@ class Command(BaseCommand):
         location_url = 'https://rickandmortyapi.com/api/location/'
         episode_url = 'https://rickandmortyapi.com/api/episode/'
 
-        # character_info = requests.get(character_url).json()
+        character_info = requests.get(character_url).json()
         
 
-        # for i in range(character_info['info']['count']):
+        for i in range(character_info['info']['count']):
             
-        #     character = requests.get(url=f'{character_url}{i+1}').json()
+            character = requests.get(url=f'{character_url}{i+1}').json()
 
-        #     if(Character.objects.filter(name=character['name']).exists()):
-        #         continue
+            if(Character.objects.filter(name=character['name']).exists()):
+                continue
 
-        #     print(f"Creating character {character['name']}")
-        #     instance = Character(
-        #         name = character['name'],
-        #         status = character['status'],
-        #         species = character['species'],
-        #         type = character['type'],
-        #         gender = character['gender'],
-        #         url = character['url'],
-        #         created = character['created']
-        #     )
+            print(f"Creating character {character['name']}")
+            instance = Character(
+                name = character['name'],
+                status = character['status'],
+                species = character['species'],
+                type = character['type'],
+                gender = character['gender'],
+                url = character['url'],
+                created = character['created']
+            )
             
-        #     origin = character['origin']['name']
-        #     location = character['location']['name']
+            origin = character['origin']['name']
+            location = character['location']['name']
 
-        #     if not Location.objects.filter(name=character['origin']['name']).exists():
-        #         origin = Location.objects.create(name=origin)
-        #     if not Location.objects.filter(name=character['location']['name']).exists():
-        #         location = Location.objects.create(name=location)
+            if not Location.objects.filter(name=character['origin']['name']).exists():
+                origin = Location.objects.create(name=origin)
+            if not Location.objects.filter(name=character['location']['name']).exists():
+                location = Location.objects.create(name=location)
 
-        #     origin = Location.objects.filter(name=origin)
-        #     location = Location.objects.filter(name=location)
+            origin = Location.objects.filter(name=origin)
+            location = Location.objects.filter(name=location)
 
 
-        #     instance.origin = origin.first()
-        #     instance.location = location.first()
+            instance.origin = origin.first()
+            instance.location = location.first()
 
-        #     # image handling
+            # image handling
 
-        #     img = requests.get(character['image'])
+            img = requests.get(character['image'])
 
-        #     img_temp = NamedTemporaryFile(delete=True)
-        #     img_temp.write(img.content)
-        #     img_temp.flush()
+            img_temp = NamedTemporaryFile(delete=True)
+            img_temp.write(img.content)
+            img_temp.flush()
 
-        #     instance.image.save(f"{character['name']}.jpeg", File(img_temp), save=True)
+            instance.image.save(f"{character['name']}.jpeg", File(img_temp), save=True)
 
-        #     instance.save()
+            instance.save()
 
         
         location_info = requests.get(location_url).json()
